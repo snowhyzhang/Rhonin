@@ -15,10 +15,10 @@ public interface DBSCANProcessor {
      * Using DBSACN algorithm to process the documents and get the cluster set.
      * input:
      * documents: document set
-     * EPS: the minimal similarity
-     * MinPts: the minimal number of points
+     * eps: the minimal similarity
+     * minPts: the minimal number of points
      * output:
      * cluster set
      */
-    public ClusterSet getClusterSet (Documents documents, double EPS, int MinPts);
+    public ClusterSet getClusterSet (Documents documents, double eps, int minPts);
 }

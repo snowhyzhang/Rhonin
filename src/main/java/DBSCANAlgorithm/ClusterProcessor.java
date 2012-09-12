@@ -2,6 +2,9 @@ package DBSCANAlgorithm;
 
 import ClusterModel.Cluster;
 import ClusterModel.ClusterSet;
+import DBSCANAlgorithm.DBSCANProcessorImpl.DBSCANProcessorImplBasic;
+import DBSCANAlgorithm.ParameterProcessorImpl.ParameterProcessorImplBasic;
+import DBSCANAlgorithm.SimilarityProcessor.CosineSimilarityProcessor;
 import DocumentModel.DocumentModel;
 import DocumentModel.Documents;
 import DocumentModel.DocumentPointType;
@@ -17,17 +20,20 @@ import java.util.List;
  */
 public class ClusterProcessor {
     public static void main(String[] args){
-        String fileName = "src/main/resources/dataName.txt";
-        String matrixInfo = "src/main/resources/data.txt";
+        String fileName = "src/main/resources/product.txt";
+        String matrixInfo = "src/main/resources/matrix.txt";
 
         Documents documents = new Documents();
         documents.generateDocuments(fileName, matrixInfo);
-        DBSCANProcessor dp = new DBSCANProcessorImpl();
+        DBSCANProcessor dp = new DBSCANProcessorImplBasic();
 
-        ClusterSet clusters = dp.getClusterSet(documents, 0.65git remote add origin https://github.com/snowhyzhang/Rhonin.gi, 2);
+        DocumentsSimilarityProcessor dsp = new CosineSimilarityProcessor();
+        ParameterProcessor pp = new ParameterProcessorImplBasic();
+        double eps = pp.getEps(documents, dsp, 1, 50);
+
+        ClusterSet clusters = dp.getClusterSet(documents, eps, 1);
         List<Cluster> clusterList = clusters.getClusters();
 
-        System.out.println("Total clusters: " + clusterList.size() + "\n**************");
         for (Cluster cluster: clusterList){
             System.out.println(cluster.getName());
             Documents subDocuments = cluster.getDocuments();
@@ -37,11 +43,18 @@ public class ClusterProcessor {
             System.out.println("+++++++++++++++++");
         }
         System.out.println("==============\noutlier:");
+        int outlierCount = 0;
         for (int i = 0; i < documents.getDocumentSize(); ++i){
             DocumentModel doc = documents.getDocument(i);
             if (doc.getDocumentPointType() == DocumentPointType.NOISE){
                 System.out.println(doc.getDocumentName());
+                outlierCount++;
             }
         }
+        System.out.println("***************\nTotal clusters: " + clusterList.size());
+        for (Cluster cluster: clusterList){
+            System.out.println(cluster.getName() + ": " + cluster.getDocuments().getDocumentSize());
+        }
+        System.out.println("Outlier: " + outlierCount);
     }
 }
