@@ -44,6 +44,7 @@ public class Cluster {
     public void setDocumentsIsCluster(){
         for (int i = 0; i < documents.getDocumentSize(); ++i){
             documents.getDocument(i).setCluster(true);
+            documents.getDocument(i).setProcessed(true);
         }
     }
 }

@@ -14,6 +14,8 @@ public class DocumentModel {
     private boolean isProcessed = false;
     private String documentName = null;
     private DocumentPointType documentPointType = DocumentPointType.NOISE;
+    private int nearestPoint = -1;
+    private double maxSimilarity = -1;
 
     public DocumentModel(){
     }
@@ -60,5 +62,21 @@ public class DocumentModel {
 
     public void setProcessed(boolean processed) {
         isProcessed = processed;
+    }
+
+    public int getNearestPoint() {
+        return nearestPoint;
+    }
+
+    public void setNearestPoint(int nearestPoint) {
+        this.nearestPoint = nearestPoint;
+    }
+
+    public double getMaxSimilarity() {
+        return maxSimilarity;
+    }
+
+    public void setMaxSimilarity(double maxSimilarity) {
+        this.maxSimilarity = maxSimilarity;
     }
 }

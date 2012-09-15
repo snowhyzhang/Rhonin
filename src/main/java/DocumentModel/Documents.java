@@ -48,7 +48,7 @@ public class Documents {
     public void generateDocuments(String fileName, String matrixInfo){
         try {
             File file = new File(fileName);
-            BufferedReader brFileName = new BufferedReader(new InputStreamReader (new FileInputStream(file)));
+            BufferedReader brFileName = new BufferedReader(new InputStreamReader (new FileInputStream(file), "UTF-8"));
             File matrix = new File(matrixInfo);
             BufferedReader brMatrix = new BufferedReader(new InputStreamReader(new FileInputStream(matrix), "UTF-8"));
             String documentName = null;

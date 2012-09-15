@@ -49,7 +49,7 @@ public class DBSCANProcessorImplBasic implements DBSCANProcessor {
                 }
             }
             if (closePoints >= minPts){
-                String clusterName = "Cluster" + String.valueOf(clusterNameCount);
+                String clusterName = "Cluster" + String.valueOf(clusterSet.getClusters().size());
                 Cluster cluster = new Cluster(clusterName);
                 clusterNameCount++;
                 Documents subDocuments = new Documents();
